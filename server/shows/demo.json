@@ -1,0 +1,32 @@
+{
+  "name": "My Showfile",
+  "authors": ["Perny"],
+  "fixtures": {
+    "par_1": {
+      "id": 1,
+      "channel": {
+        "channel": 1,
+        "universe": 1
+      },
+      "type_id": "generic.par",
+      "mode_id": "generic.par.5ch",
+      "visualizor_position": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "overwrite": {
+        "dimmer": 100,
+        "strobe": 0,
+        "color": {
+          "red": 255,
+          "green": 255,
+          "blue": 255
+        }
+      },
+      "layers": []
+    }
+  },
+  "sequences": {},
+  "presets": {}
+}

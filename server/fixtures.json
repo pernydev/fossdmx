@@ -1,0 +1,93 @@
+[
+    {
+        "id": "generic.par",
+        "name": "PAR",
+        "vendor": "Generic",
+        "features": [
+            "Dimmer",
+            "RGB",
+            "Strobe"
+        ],
+        "modes": [
+            {
+                "id": "generic.par.3ch",
+                "name": "4 Channel",
+                "channel_count": 4,
+                "channels": {
+                    "0": {
+                        "type": "Dim"
+                    },
+                    "1": {
+                        "type": "Red"
+                    },
+                    "2": {
+                        "type": "Green"
+                    },
+                    "3": {
+                        "type": "Blue"
+                    }
+                }
+            },
+            {
+                "id": "generic.par.5ch",
+                "name": "5 Channel",
+                "channel_count": 5,
+                "channels": {
+                    "0": {
+                        "type": "Dim"
+                    },
+                    "1": {
+                        "type": "Red"
+                    },
+                    "2": {
+                        "type": "Green"
+                    },
+                    "3": {
+                        "type": "Blue"
+                    },
+                    "4": {
+                        "type": "Strobe"
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "id": "generic.movinghead",
+        "name": "Moving Head",
+        "vendor": "Generic",
+        "features": [
+            "Dimmer",
+            "RGB",
+            "Pan",
+            "Tilt"
+        ],
+        "modes": [
+            {
+                "id": "generic.movinghead.9ch",
+                "name": "7 Channel",
+                "channel_count": 7,
+                "channels": {
+                    "0": {
+                        "type": "Dim"
+                    },
+                    "1": {
+                        "type": "Red"
+                    },
+                    "2": {
+                        "type": "Green"
+                    },
+                    "3": {
+                        "type": "Blue"
+                    },
+                    "6": {
+                        "type": "Pan"
+                    },
+                    "7": {
+                        "type": "Tilt"
+                    }
+                }
+            }
+        ]
+    }
+]
