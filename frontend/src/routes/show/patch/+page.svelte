@@ -1,10 +1,12 @@
 <script lang="ts">
 	import { err } from '$lib/error.svelte';
-	import { fixtures } from '$lib/main.svelte';
+	import { fixture_modes, fixtures } from '$lib/main.svelte';
 	import { calculatePositions, getUniverse } from '$lib/patch.svelte';
 	import { onMount } from 'svelte';
-	
+	import AddFixture from './AddFixture.svelte';
+
 	let selectedFixture: string | null = $state(null);
+	let selectedTouchFixture: string | null = $state(null);
 	let offset = $state(0);
 	let whereweat = $state(0);
 	let mousedown = $state(false);
@@ -12,6 +14,8 @@
 	let locations = $state(calculatePositions());
 	let universeLocations = $state(getUniverse(locations));
 	
+	let dialogOpen = $state(false);
+
 	$effect(() => {
 		if (!mousedown) return;
 		if (!dragging) {
@@ -22,9 +26,8 @@
 
 		if (selectedFixture) {
 			const newStart = whereweat - offset;
-			console.log(newStart, newStart + 6);
 			locations[selectedFixture].start = newStart;
-			locations[selectedFixture].end = newStart + 6;
+			locations[selectedFixture].end = newStart + fixture_modes[fixtures[selectedFixture].mode_id].channel_count;
 
 			universeLocations = getUniverse(locations);
 		}
@@ -58,25 +61,45 @@
 				}
 			})
 		});
-		
+
 		if (!response.ok) {
-			err('Patching failed!', "/api/patch NOT OK");
+			err('Patching failed!', '/api/patch NOT OK');
+		}
+	}
+
+	function touch(event: TouchEvent) {
+		const elm = document.elementFromPoint(
+			event.changedTouches[0].clientX,
+			event.changedTouches[0].clientY
+		);
+		if (elm instanceof HTMLElement) {
+			if (!elm.dataset.channel) return;
+			if (selectedFixture) {
+				locations[selectedTouchFixture || ''].start = parseInt(elm.dataset.channel);
+				locations[selectedTouchFixture || ''].end = parseInt(elm.dataset.channel) + 6;
+				universeLocations = getUniverse(locations);
+				mouseUp();
+				return;
+			}
+			selectedTouchFixture = universeLocations[parseInt(elm.dataset.channel)] || '';
 		}
 	}
 
 	onMount(() => {
 		window.addEventListener('mousedown', mouseDown);
 		window.addEventListener('mouseup', mouseUp);
+		window.addEventListener('touchend', touch);
 
 		return () => {
 			window.removeEventListener('mousedown', mouseDown);
 			window.removeEventListener('mouseup', mouseUp);
+			window.removeEventListener('touchend', touch);
 		};
 	});
-
 </script>
 
-{whereweat}
+<button onclick={() => (dialogOpen = true)}>Add Fixture</button>
+<AddFixture bind:open={dialogOpen} />
 
 <!-- svelte-ignore a11y_no_static_element_interactions -->
 <div
@@ -96,6 +119,7 @@
 						? 'end'
 						: 'middle'}
 				onmouseover={() => (whereweat = i)}
+				data-channel={i}
 			>
 				<span><small>{i}</small></span>
 				{#if locations[universeLocations[i] || '']?.start === i}
@@ -105,7 +129,7 @@
 		{:else}
 			<!-- svelte-ignore a11y_no_static_element_interactions -->
 			<!-- svelte-ignore a11y_mouse_events_have_key_events -->
-			<div onmouseover={() => (whereweat = i)} onmouseleave={() => (whereweat = 0)}>
+			<div onmouseover={() => (whereweat = i)} data-channel={i}>
 				<span><small>{i}</small></span>
 			</div>
 		{/if}
