@@ -122,3 +122,21 @@ button {
 .mt-0 {
 	margin-top: 0;
 }
+
+.unstyled {
+	all: unset;
+}
+
+button.unstyled {
+	cursor: pointer;
+}
+
+input {
+	all: unset;
+
+	background-color: var(--background-950);
+	color: var(--text-100);
+	border: 1px solid var(--text-500);
+	padding: 0.5rem;
+	border-radius: 0.5rem;
+}

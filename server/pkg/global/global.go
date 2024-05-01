@@ -21,4 +21,5 @@ var (
 		ReportCaller: true,
 	})
 	DataFolder = xdg.DataHome + "/fossdmx/"
+	Ready      = make(chan struct{})
 )

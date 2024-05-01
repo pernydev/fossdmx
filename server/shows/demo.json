@@ -3,7 +3,7 @@
   "authors": ["Perny"],
   "fixtures": {
     "par_1": {
-      "id": 1,
+      "id": "par_1",
       "channel": {
         "channel": 1,
         "universe": 1
@@ -14,19 +14,94 @@
         "x": 0,
         "y": 0,
         "z": 0
+      }
+    },
+    "par_2": {
+      "id": "par_2",
+      "channel": {
+        "channel": 1,
+        "universe": 1
       },
-      "overwrite": {
-        "dimmer": 100,
-        "strobe": 0,
-        "color": {
-          "red": 255,
-          "green": 255,
-          "blue": 255
-        }
-      },
-      "layers": []
+      "type_id": "generic.par",
+      "mode_id": "generic.par.5ch",
+      "visualizor_position": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      }
     }
   },
-  "sequences": {},
-  "presets": {}
+  "scenes": {
+    "scn_1": {
+      "id": "scn_1",
+      "name": "Red",
+      "overwrites": {
+        "par_1": {
+          "color": {
+            "red": 255,
+            "green": 0,
+            "blue": 0
+          }
+        },
+        "par_2": {
+          "color": {
+            "red": 255,
+            "green": 0,
+            "blue": 0
+          }
+        }
+      }
+    },
+    "scn_2": {
+      "id": "scn_2",
+      "name": "Green",
+      "overwrites": {
+        "par_1": {
+          "color": {
+            "red": 0,
+            "green": 255,
+            "blue": 0
+          }
+        },
+        "par_2": {
+          "color": {
+            "red": 0,
+            "green": 255,
+            "blue": 0
+          }
+        }
+      }
+    },
+
+    "scn_3": {
+      "id": "scn_3",
+      "name": "Blue",
+      "overwrites": {
+        "par_1": {
+          "color": {
+            "red": 0,
+            "green": 0,
+            "blue": 255
+          }
+        },
+        "par_2": {
+          "color": {
+            "red": 0,
+            "green": 0,
+            "blue": 255
+          }
+        }
+      }
+    }
+  },
+  "sequences": {
+    "seq_1": {
+      "id": "seq_1",
+      "name": "Color Sequence",
+      "scene_ids": ["scn_1", "scn_2", "scn_3"],
+      "loop": true,
+      "delay": 1,
+      "fade": 1
+    }
+  }
 }

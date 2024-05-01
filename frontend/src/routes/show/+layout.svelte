@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import { fixture_modes, fixture_types, fixtures } from '$lib/main.svelte';
+	import { fixture_modes, fixture_types, fixtures, scenes, sequences } from '$lib/main.svelte';
 
 	async function fetchShowFile() {
 		const sf = await fetch('/api/showfile');
@@ -12,6 +12,12 @@
 
 		Object.keys(fixtures).forEach((key) => delete fixtures[key]);
 		Object.assign(fixtures, showfile.fixtures);
+
+		Object.keys(scenes).forEach((key) => delete scenes[key]);
+		Object.assign(scenes, showfile.scenes);
+
+		Object.keys(sequences).forEach((key) => delete sequences[key]);
+		Object.assign(sequences, showfile.sequences);
 
 		const fixture_types_resp = await fetch('/api/registry/fixture_types');
 		const fixture_types_json = (await fixture_types_resp.json()) as Record<string, FixtureType>;

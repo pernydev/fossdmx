@@ -14,6 +14,7 @@ type FixtureType struct {
 	ID     string `json:"id"`
 	Name   string `json:"name"`
 	Vendor string `json:"vendor"`
+	Prefix string `json:"prefix"`
 
 	Modes    []FixtureMode    `json:"modes"`
 	Features []FixtureFeature `json:"features"`
@@ -114,12 +115,16 @@ type FixtureLayer struct {
 }
 
 type Scene struct {
-	Overwrites FixtureOverwrite `json:"overwrites"`
-	Fixtures   []*Fixture       `json:"fixture"`
+	ID         string                      `json:"id"`
+	Name       string                      `json:"name"`
+	Overwrites map[string]FixtureOverwrite `json:"overwrites"` // FixtureID -> FixtureOverwrite
 }
 
 type Sequence struct {
-	Scenes   []*Scene `json:"scenes"`
+	ID       string   `json:"id"`
+	Name     string   `json:"name"`
+	SceneIDs []string `json:"scene_ids"`
 	Delay    uint16   `json:"delay"`
 	Fadetime uint16   `json:"fadetime"`
+	Loop     bool     `json:"loop"`
 }

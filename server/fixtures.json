@@ -3,6 +3,7 @@
         "id": "generic.par",
         "name": "PAR",
         "vendor": "Generic",
+        "prefix": "PAR",
         "features": [
             "Dimmer",
             "RGB",
@@ -56,6 +57,7 @@
         "id": "generic.movinghead",
         "name": "Moving Head",
         "vendor": "Generic",
+        "prefix": "MH",
         "features": [
             "Dimmer",
             "RGB",

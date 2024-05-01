@@ -38,6 +38,8 @@ func main() {
 
 	go webserver.InitRouter()
 
+	<-global.Ready
+
 	global.Log.Info("FOSSDMX Operational")
 
 	select {}

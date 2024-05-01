@@ -22,6 +22,12 @@ import '../app.css';
 <ErrorDialog />
 
 <style>
+    c {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+    }
+    
 	nav {
         width: 100%;
 		display: flex;

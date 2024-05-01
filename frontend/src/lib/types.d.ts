@@ -1,99 +1,102 @@
-
 type Showfile = {
-    name: string;
-    filename: string;
-    authors: string[];
-    fixtures: { [key: string]: Fixture };
-    sequences: { [key: string]: Sequence };
-    scenes: { [key: string]: Scene };
+	name: string;
+	filename: string;
+	authors: string[];
+	fixtures: { [key: string]: Fixture };
+	sequences: { [key: string]: Sequence };
+	scenes: { [key: string]: Scene };
 };
 
 type FixtureType = {
-    id: string;
-    name: string;
-    vendor: string;
-    modes: FixtureMode[];
-    features: FixtureFeature[];
+	id: string;
+	name: string;
+	prefix: string;
+	vendor: string;
+	modes: FixtureMode[];
+	features: FixtureFeature[];
 };
 
 type FixtureFeature = 'dimmer' | 'strobe' | 'rgb' | 'white' | 'amber' | 'pan' | 'tilt';
 
 type FixtureMode = {
-    id: string;
-    name: string;
-    channel_count: number;
-    channels: { [key: number]: FixtureChannel };
+	id: string;
+	name: string;
+	channel_count: number;
+	channels: { [key: number]: FixtureChannel };
 };
 
 type FixtureChannel = {
-    type: FixtureChannelType;
+	type: FixtureChannelType;
 };
 
 type FixtureChannelType =
-    | 'custom'
-    | 'rgb_red'
-    | 'rgb_green'
-    | 'rgb_blue'
-    | 'rgb_white'
-    | 'rgb_amber'
-    | 'dimmer'
-    | 'strobe'
-    | 'pan'
-    | 'tilt';
+	| 'custom'
+	| 'rgb_red'
+	| 'rgb_green'
+	| 'rgb_blue'
+	| 'rgb_white'
+	| 'rgb_amber'
+	| 'dimmer'
+	| 'strobe'
+	| 'pan'
+	| 'tilt';
 
 type Channel = {
-    channel: number; // DMX channel
-    universe: number; // DMX universe, I think 256 universes is good enough :D
+	channel: number; // DMX channel
+	universe: number; // DMX universe, I think 256 universes is good enough :D
 };
 
 type Color = {
-    red: number;
-    green: number;
-    blue: number;
-    white: number;
-    amber: number;
+	red: number;
+	green: number;
+	blue: number;
+	white: number;
+	amber: number;
 };
 
 type Position = {
-    pan: number;
-    tilt: number;
+	pan: number;
+	tilt: number;
 };
 
 type Fixture = {
-    id: number;
-    channel: Channel;
-    type_id: string;
-    mode_id: string;
-    visualizor_position: XYZ;
-    overwrite: FixtureLayer;
+	id: string;
+	channel: Channel;
+	type_id: string;
+	mode_id: string;
+	overwrite: FixtureOverwrite;
+	layers: Record<string, FixtureLayer>;
 };
 
 type XYZ = {
-    x: number;
-    y: number;
-    z: number;
+	x: number;
+	y: number;
+	z: number;
 };
 
 type FixtureOverwrite = {
-    dimmer: number;
-    strobe: number;
-    color: Color;
-    position: Position;
+	dimmer?: number;
+	strobe?: number;
+	color?: Color;
+	position?: Position;
 };
 
 type FixtureLayer = {
-    overwrites: FixtureOverwrite;
-    weight: number;
+	overwrites: FixtureOverwrite;
+	weight: number;
 };
 
 type Scene = {
-    id: string;
-    overwrites: FixtureOverwrite;
-    fixture_ids: string[];
+	id: string;
+	name: string;
+	overwrites: Record<string, FixtureOverwrite>;
 };
 
 type Sequence = {
-    scene_ids: string[];
-    delay: number;
-    fadetime: number;
+	id: string;
+	name: string;
+	scene_ids: string[];
+	delay: number;
+	fadetime: number;
+	loop: boolean;
 };

@@ -2,6 +2,7 @@ package webserver
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/pernydev/fossdmx/pkg/global"
 )
 
 func InitRouter() {
@@ -12,7 +13,9 @@ func InitRouter() {
 	r.GET("/api/registry/fixture_types", GetFixtureTypes)
 	r.POST("/api/showfile", SetShowfile)
 
-	r.POST("/api/patch", Patch)
+	r.PATCH("/api/patch", MoveFixture)
+	r.POST("/api/patch", AddFixture)
 
+	global.Ready <- struct{}{}
 	r.Run()
 }

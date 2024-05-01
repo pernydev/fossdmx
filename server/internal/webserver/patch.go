@@ -6,7 +6,7 @@ import (
 	"github.com/pernydev/fossdmx/pkg/models"
 )
 
-func Patch(c *gin.Context) {
+func MoveFixture(c *gin.Context) {
 	var data struct {
 		FixtureID string         `json:"fixture_id"`
 		Channel   models.Channel `json:"channel"`
@@ -24,4 +24,17 @@ func Patch(c *gin.Context) {
 
 	fixture.Channel = data.Channel
 	c.Status(204)
+}
+
+func AddFixture(c *gin.Context) {
+	var data struct {
+		Fixture models.Fixture `json:"fixture"`
+	}
+	if err := c.ShouldBindJSON(&data); err != nil {
+		c.JSON(400, gin.H{"error": err.Error()})
+		return
+	}
+
+	global.Showfile.Fixtures[data.Fixture.ID] = &data.Fixture
+	c.JSON(200, data.Fixture)
 }

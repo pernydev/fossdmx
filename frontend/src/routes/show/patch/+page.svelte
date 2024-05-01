@@ -49,7 +49,7 @@
 		if (!selectedFixture) return;
 		console.log(selectedFixture);
 		const response = await fetch('/api/patch', {
-			method: 'POST',
+			method: 'PATCH',
 			headers: {
 				'Content-Type': 'application/json'
 			},

@@ -30,10 +30,10 @@ export function calculatePositions(): Record<string, { start: number; end: numbe
 	for (const [id, fixture] of Object.entries(fixtures)) {
 		positions[id] = {
 			start: fixture.channel.channel,
-			end: fixture_modes[fixture.mode_id].channel_count + fixture.channel.channel,
+			end: fixture_modes[fixture.mode_id].channel_count + fixture.channel.channel
 		};
 	}
-    return positions;
+	return positions;
 }
 
 export function getFixtureAtPosition(
@@ -53,7 +53,43 @@ export function getUniverse(
 ): Record<number, string | null> {
 	const universe: Record<number, string | null> = {};
 	for (let i = 0; i < 512; i++) {
-        universe[i] = getFixtureAtPosition(i, calculation);
+		universe[i] = getFixtureAtPosition(i, calculation);
 	}
 	return universe;
+}
+
+/**
+ * Find the next available channel for a fixture with a given channel count.
+ * @param count The channel count of the fixture.
+ * @param calculation The current channel usage.
+ * @returns The next available channel.
+ */
+/**
+ * Find the next available channel for a fixture with a given channel count.
+ * @param count The channel count of the fixture.
+ * @param calculation The current channel usage.
+ * @returns The next available channel.
+ */
+export function nextAvailableChannel(
+	count: number,
+	calculation: Record<string, { start: number; end: number }>
+): number {
+	let availableChannel = 1;
+	const positions = Object.values(calculation);
+
+	positions.sort((a, b) => a.start - b.start);
+
+	for (const position of positions) {
+		if (availableChannel + count <= position.start) {
+			return availableChannel;
+		} else {
+			availableChannel = position.end + 1;
+		}
+	}
+
+	if (availableChannel + count <= 512) {
+		return availableChannel;
+	}
+
+	return -1;
 }
